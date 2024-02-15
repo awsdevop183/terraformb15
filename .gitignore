@@ -1,0 +1,3 @@
+functions/.terraform/*
+functions/terraform.tfstate*
+functions/.terraform*
