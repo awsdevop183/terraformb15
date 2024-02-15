@@ -6,15 +6,15 @@ resource "random_password" "db_creds" {
 
 
 
-resource "aws_secretsmanager_secret" "example" {
-  name = "example"
+resource "aws_secretsmanager_secret" "db-login" {
+  name = "db-login"
 }
 
 resource "aws_secretsmanager_secret_version" "login" {
- secret_id = aws_secretsmanager_secret.example.id
- secret_string = <<EOF
+  secret_id     = aws_secretsmanager_secret.db-login.id
+  secret_string = <<EOF
  {
-  "username" : "amdin2",
+  "username" : "admin",
   "password" : "${random_password.db_creds.result}"
  }
  EOF
@@ -38,7 +38,7 @@ resource "aws_db_subnet_group" "db_sub" {
     Name = "db-subnet"
   }
   subnet_ids = aws_subnet.public-subnets.*.id
-  
+
 }
 
 
@@ -46,18 +46,19 @@ resource "aws_db_subnet_group" "db_sub" {
 
 
 resource "aws_db_instance" "test-db" {
-  allocated_storage    = 10
-  identifier  = "mydb"
-  db_name              = "mydb"
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username             = local.db_creds.username
-  password             = local.db_creds.password
-  parameter_group_name = "default.mysql5.7"
-  publicly_accessible = true
-  skip_final_snapshot  = true
-  db_subnet_group_name = aws_db_subnet_group.db_sub.name
+  allocated_storage      = 10
+  identifier             = "mydb"
+  db_name                = "mydb"
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.t3.micro"
+  username               = local.db_creds.username
+  password               = local.db_creds.password
+  parameter_group_name   = "default.mysql5.7"
+  vpc_security_group_ids = ["${aws_security_group.default-sg.id}"]
+  publicly_accessible    = true
+  skip_final_snapshot    = true
+  db_subnet_group_name   = aws_db_subnet_group.db_sub.name
   tags = {
     Name = "MyDB"
   }
