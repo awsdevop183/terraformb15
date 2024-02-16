@@ -4,7 +4,7 @@
 
 resource "aws_security_group" "dynamic-sg" {
   name   = "dynamic-sg"
-  vpc_id = aws_vpc.default.id
+  vpc_id = var.vpc_id
   tags = {
     Name = "${var.vpc-name}-Dynamic-sg"
   }

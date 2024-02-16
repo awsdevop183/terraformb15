@@ -25,7 +25,6 @@ resource "aws_subnet" "public-subnets" {
 
 
 
-
 resource "aws_route_table" "pub-rt" {
   vpc_id = aws_vpc.default.id
   tags = {
@@ -36,7 +35,6 @@ resource "aws_route_table" "pub-rt" {
     gateway_id = aws_internet_gateway.default-igw.id
   }
 }
-
 
 
 resource "aws_route_table_association" "public" {

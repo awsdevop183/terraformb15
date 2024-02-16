@@ -1,3 +1,15 @@
 functions/.terraform/*
 functions/terraform.tfstate*
 functions/.terraform*
+
+modules/Dev/.terraform/*
+modules/Dev/terraform.tfstate*
+modules/Dev/.terraform*
+
+modules/network/.terraform/*
+modules/network/terraform.tfstate*
+modules/network/.terraform*
+
+modules/security-groups/.terraform/*
+modules/security-groups/terraform.tfstate*
+modules/security-groups/.terraform*
