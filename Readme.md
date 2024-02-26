@@ -1,4 +1,4 @@
-**# Deploy infra on AWS using Terraform**
+**#Deploy infra on AWS using Terraform**
 
 
 **Git Amend**
